@@ -120,7 +120,11 @@ function clearInputs() {
 .multiselect__tag {
   background: #0080D0 !important;
 }
-
+.multiselect__input {
+  font-size: 14px;
+  padding: 0;
+  margin: 0;
+}
 .multiselect__tag-icon::after {
   color: white;
 }

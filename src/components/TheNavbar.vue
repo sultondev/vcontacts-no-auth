@@ -2,11 +2,6 @@
   <nav class="nav">
     <ul class="nav-list flex flex-col text-white px-4 py-6 w-full">
       <li class="nav-list__item">
-        <router-link class="nav-list__link" to="/">
-          Dashboard
-        </router-link>
-      </li>
-      <li class="nav-list__item">
         <router-link class="nav-list__link" to="/contacts">
           Contacts
         </router-link>
