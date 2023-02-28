@@ -52,7 +52,7 @@
                 :key="tag?.id"
                 class="hashtag"
               >
-                #{{tagsStore.findTagById(tag?.id)}}
+                #{{tagsStore.findTagById(tag?.id, item?.id)}}
               </span>
             </span>
           </div>

@@ -1,8 +1,6 @@
 import {
   createRouter,
   createWebHistory,
-  NavigationGuardNext,
-  RouteLocationNormalized,
 } from "vue-router";
 import { useUserStore } from "@/store/userStore";
 const Layout = () => import("@/layout/layout.vue");

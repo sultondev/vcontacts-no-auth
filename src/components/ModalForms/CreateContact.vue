@@ -125,6 +125,9 @@ function clearInputs() {
   padding: 0;
   margin: 0;
 }
+.multiselect__placeholder {
+  margin: 0;
+}
 .multiselect__tag-icon::after {
   color: white;
 }

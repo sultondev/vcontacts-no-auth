@@ -2,6 +2,7 @@ import { defineStore } from "pinia";
 import { ref, Ref, computed } from "vue";
 import { TagsDataType } from "@/typing/types/tags";
 import {saveToLocal} from "@/helpers";
+import {useContactsStore} from "@/store/useContacts";
 
 export const useTagsStore = defineStore("useTagsStore", {
   state: ()=> ({
@@ -26,10 +27,13 @@ export const useTagsStore = defineStore("useTagsStore", {
       this.tags = JSON.parse(localTags)
     }
   },
-  findTagById(id: number | string) {
+  findTagById(id: number | string, contactId?: string) {
     const res = this.tags.find((element: TagsDataType) => element.id === id)?.title || false;
     if(res) {
         return res
+    } else {
+        const contactStore = useContactsStore()
+        contactStore.deleteContactTag(id, contactId)
     }
   },
   createTag(title: string) {

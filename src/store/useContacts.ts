@@ -34,36 +34,42 @@ export const useContactsStore: any = defineStore("contactsStore",  {
     },
     saveContacts() {
         saveToLocal('contacts', this.contacts)
+    },
+    deleteContactTag(tagId: string, contactId: string) {
+      const indexOfContact = this.contacts?.findIndex((contact) => contact.id === contactId)
+      const indexOfTagInContact = this.contacts[indexOfContact].tags?.findIndex((tag) => tag.id === tagId)
+      this.contacts[indexOfContact].tags.splice(indexOfTagInContact, 1)
     }
   },
   getters: {
-  filteredContacts: (state) => {
-    return (searchData: any | TagsDataType[] | [] | string, type: string) => {
-      if(searchData && searchData.length > 0 && type) {
-        switch (type) {
-          case 'name':
-          case 'email':
-          case 'phone':
-            return state.contacts.filter((item:ContactDataType)=>{
-              return item[type].toLowerCase().includes(searchData.toLowerCase())
-          });
-          case 'tags':
-            return state.contacts.filter((item: ContactDataType)=> {
-              return item.tags.some((userTag: TagsDataType)=>
-                  {
-                    console.log(userTag, searchData)
-                    return searchData.some((searchTag: {id: string}) => {
-                      return searchTag.id === userTag.id})
-                  }
-              )
-            });
-          default:
+    filteredContacts: (state) => {
+      return (searchData: any | TagsDataType[] | [] | string, type: string) => {
+          if(searchData && searchData.length > 0 && type) {
+            switch (type) {
+              case 'name':
+              case 'email':
+              case 'phone':
+                return state.contacts.filter((item:ContactDataType)=>{
+                  return item[type].toLowerCase().includes(searchData.toLowerCase())
+              });
+              case 'tags':
+                return state.contacts.filter((item: ContactDataType)=> {
+                  return item.tags.some((userTag: TagsDataType)=>
+                      {
+                        console.log(userTag, searchData)
+                        return searchData.some((searchTag: {id: string}) => {
+                          return searchTag.id === userTag.id})
+                      }
+                  )
+                });
+              default:
+                return state.contacts
+            }
+          } else {
             return state.contacts
+          }
         }
-      } else {
-        return state.contacts
-      }
-    }},
+      },
     getContactById: (state) => {
       return (userId: string) => {
         return state.contacts.find((listItem: ContactDataType)=> listItem.id === userId)
