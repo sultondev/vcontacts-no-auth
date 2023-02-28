@@ -38,18 +38,32 @@ export const useContactsStore: any = defineStore("contactsStore",  {
   },
   getters: {
   filteredContacts: (state) => {
-    return (searchTags: TagsDataType[] | []) => state.contacts.filter((item: ContactDataType)=> {
-    if(searchTags && searchTags.length > 0) {
-      return item.tags && item.tags.some((userTag: TagsDataType)=>
-          {
-            console.log(userTag, searchTags)
-            return searchTags.some((searchTag) => {
-              return searchTag.id === userTag.id})
-          }
-      )
-    }
-    return item
-  })},
+    return (searchData: any | TagsDataType[] | [] | string, type: string) => {
+      if(searchData && searchData.length > 0 && type) {
+        switch (type) {
+          case 'name':
+          case 'email':
+          case 'phone':
+            return state.contacts.filter((item:ContactDataType)=>{
+              return item[type].toLowerCase().includes(searchData.toLowerCase())
+          });
+          case 'tags':
+            return state.contacts.filter((item: ContactDataType)=> {
+              return item.tags.some((userTag: TagsDataType)=>
+                  {
+                    console.log(userTag, searchData)
+                    return searchData.some((searchTag: {id: string}) => {
+                      return searchTag.id === userTag.id})
+                  }
+              )
+            });
+          default:
+            return state.contacts
+        }
+      } else {
+        return state.contacts
+      }
+    }},
     getContactById: (state) => {
       return (userId: string) => {
         return state.contacts.find((listItem: ContactDataType)=> listItem.id === userId)

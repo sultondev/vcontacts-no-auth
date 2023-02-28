@@ -7,7 +7,6 @@ module.exports = {
         "eslint:recommended",
         "plugin:vue/vue3-essential",
         "plugin:@typescript-eslint/recommended"
-        "prettier"
     ],
     "overrides": [
     ],
@@ -20,5 +19,6 @@ module.exports = {
         "vue",
         "@typescript-eslint"
     ],
-
+    "rules": {
+    }
 }

@@ -9,16 +9,33 @@
 
     <div class="w-[80%] mx-auto pt-2">
       <h5 class="text-3xl text-white text-center">Contacts</h5>
-      <div class="mx-auto w-fit my-6">
-        <Multiselect v-model="searchData.tags" placeholder="Search or add a tag"
-                     label="name" track-by="id" class="max-w-[315px]" :options="tagsStore?.tagOptions" :multiple="true" ></Multiselect>
+      <div class="mx-auto flex w-full justify-center gap-4 my-6">
+        <div>
+            <Multiselect v-model="search.data" placeholder="Search or add a tag"
+                         v-if="search.type?.name === 'tags'"
+                         label="name" track-by="id" class="min-w-[315px] max-w-[315px]" :options="tagsStore?.tagOptions" :multiple="true" >
+            </Multiselect>
+          <Input
+              v-else
+              :text="search.data"
+              @input-change="handleInputChange"
+              class="py-[6px] px-2 rounded-md border-2 bg-white text-black"
+              max="30"
+              min="3"
+              field-key="data"
+              :placeholder="`Enter your information`"
+          />
+        </div>
+          <Multiselect v-model="search.type" placeholder="Search mode"
+                       label="name" track-by="id" class="max-w-[160px]" :options="search.options" :multiple="false" >
+          </Multiselect>
       </div>
       <ul
         class="flex flex-col gap-2 mt-12"
-        v-if="contactStore.filteredContacts(searchData.tags)?.length > 0"
+        v-if="searchResult?.length > 0"
       >
         <li
-          v-for="item in contactStore.filteredContacts(searchData.tags)"
+          v-for="item in searchResult"
           class="group px-6 flex justify-between py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
           :key="item.id + item.email"
         >
@@ -29,7 +46,7 @@
             <span class="text-[#DBE3FFA2] text-xs font-normal">
               +998 {{ item.phone }}
             </span>
-            <span class="flex my-1 gap-1" v-if="item.tags">
+            <span class="flex my-1 gap-1" v-if="item?.tags">
               <span
                 v-for="tag in item.tags"
                 :key="tag?.id"
@@ -82,13 +99,15 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, computed} from "vue";
+import { watch, reactive, computed } from "vue";
 import TheModal from "@/components/TheModal.vue";
 import CreateContact from "@/components/ModalForms/CreateContact.vue";
 import { useContactsStore } from "@/store/useContacts";
 import {useTagsStore} from "@/store/useTags";
 import Multiselect from 'vue-multiselect'
 import UpdateContact from "@/components/ModalForms/UpdateContact.vue";
+import Input from "@/components/UI/Input.vue";
+import {ContactSearchType} from "@/typing/types/contacts";
 
 const modals: any = reactive({
   addContactModal: false,
@@ -109,12 +128,41 @@ function editContact(id: string) {
   selectedContact.id = id
   openModal('editContactModal')
 }
-const searchData = reactive({
-  tags: []
+const search: ContactSearchType | any = reactive({
+  data: "",
+  type: "",
+  options: [
+    {
+      name: "name",
+      id: "WLJIAJdlwljljiI"
+    },
+    {
+      name: "email",
+      id: "defaDQQ2312"
+    },
+    {
+      name: "phone",
+      id: "98JDLWAIJ"
+    },
+    {
+      name: "tags",
+      id: "08JDIAWj"
+    }
+  ]
 })
 const contactStore = useContactsStore();
 const tagsStore = useTagsStore()
 contactStore.initialize();
+const searchResult = computed(()=>contactStore.filteredContacts(search.data, search?.type?.name))
+
+
+function handleInputChange(value: string, key: string) {
+  search[key] = value;
+}
+
+watch(()=> search.type, () => {
+  search.data = ''
+})
 
 </script>
 

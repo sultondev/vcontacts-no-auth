@@ -1,4 +1,5 @@
 import {TagsDataType} from "@/typing/types/tags";
+import {MultiselectTypes} from "@/typing/types/global";
 
 export type Contact = {
   id: string;
@@ -14,3 +15,9 @@ export type ContactDataType = {
   tags: TagsDataType[] | []
 };
 
+export type ContactSearchType = {
+  data: string | any,
+  type: string | any
+  options: MultiselectTypes[]
+
+}
