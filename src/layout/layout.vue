@@ -1,7 +1,7 @@
 <template>
   <div class="flex">
     <div
-      class="bg-[#1F0354] h-screen sticky top-0 flex flex-col items-center py-8"
+      class="bg-[#1F0354] h-screen sticky top-0 flex-col items-center py-8 md:flex hidden"
     >
       <div class="">
         <img
@@ -13,11 +13,12 @@
       <TheNavbar />
       <button
         class="logout absolute bottom-4 left-1/2 -translate-x-1/2"
-        @click="userStore.logout"
+        @click="deleteAllData"
       >
-        Log Out
+        Delete All data
       </button>
     </div>
+    <TheMobileNavbar />
     <router-view />
   </div>
 </template>
@@ -26,11 +27,19 @@
 import TheNavbar from "@/components/TheNavbar.vue";
 import { useUserStore } from "@/store/userStore";
 import { useTagsStore } from "@/store/useTags";
-
+import {useContactsStore} from "@/store/useContacts";
+import TheMobileNavbar from "@/components/TheMobileNavbar.vue";
 const userStore = useUserStore();
 const tagsStore = useTagsStore();
+const contactsStore = useContactsStore()
 
 tagsStore.initialize();
+
+function deleteAllData() {
+  userStore.clearAllData()
+  tagsStore.initialize()
+  contactsStore.initialize()
+}
 </script>
 
 <style>

@@ -13,7 +13,7 @@
   </nav>
 </template>
 
-<style>
+<style scoped>
 .nav-list__item {
   @apply py-4 px-6;
 }

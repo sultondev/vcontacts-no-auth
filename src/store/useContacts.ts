@@ -15,6 +15,8 @@ export const useContactsStore: any = defineStore("contactsStore",  {
       const localContacts = localStorage.getItem('contacts')
       if(localContacts) {
         this.contacts = JSON.parse(localContacts)
+      } else {
+        this.contacts = []
       }
     },
     putContact(data: ContactDataType | any) {

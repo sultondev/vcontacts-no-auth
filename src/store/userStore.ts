@@ -20,8 +20,9 @@ export const useUserStore = defineStore("userStore", () => {
   async function deleteToken() {
     localStorage.removeItem("token");
   }
-  async function logout() {
-    localStorage.removeItem("token");
+  async function clearAllData() {
+    localStorage.removeItem("tags");
+    localStorage.removeItem('contacts')
   }
-  return { user, checkAuth, deleteToken, logout };
+  return { user, checkAuth, deleteToken, clearAllData };
 });

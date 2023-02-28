@@ -25,6 +25,8 @@ export const useTagsStore = defineStore("useTagsStore", {
     const localTags = localStorage.getItem('tags')
     if(localTags) {
       this.tags = JSON.parse(localTags)
+    } else {
+        this.tags = []
     }
   },
   findTagById(id: number | string, contactId?: string) {

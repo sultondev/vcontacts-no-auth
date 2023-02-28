@@ -1,7 +1,7 @@
 <template>
   <div class="w-full container mx-auto my-6 text-white relative">
     <button
-      @click="openModal"
+      @click="modalsStore.openModal('addTagModal')"
       class="absolute right-0 bg-[#2A0096] hover:bg-[#6909B8] m-2 p-2 text-sm rounded-full"
     >
       #+
@@ -36,11 +36,12 @@
     </div>
     <teleport to="#modal">
       <TheModal
-        :is-modal-open="isModaOpen"
-        @closeModal="closeModal"
+        :is-modal-open="modalsStore.modals.addTagModal"
+        @closeModal="modalsStore.closeModal"
         container-classes="bg-[#4200D8] px-4 py-8 rounded-md"
+        modal-key="addTagModal"
       >
-        <CreateTag @closeModal="closeModal" />
+        <CreateTag @closeModal="modalsStore.closeModal" modal-key="addTagModal" />
       </TheModal>
     </teleport>
   </div>
@@ -48,17 +49,10 @@
 
 <script setup lang="ts">
 import { useTagsStore } from "@/store/useTags";
-import { ref } from "vue";
 import TheModal from "@/components/TheModal.vue";
 import CreateTag from "@/components/ModalForms/CreateTag.vue";
-const isModaOpen = ref(false);
+import {useModalsStore} from "@/store/useModalsStore";
 
-function closeModal() {
-  isModaOpen.value = false;
-}
-
-function openModal() {
-  isModaOpen.value = true;
-}
+const modalsStore = useModalsStore()
 const tagsStore = useTagsStore();
 </script>

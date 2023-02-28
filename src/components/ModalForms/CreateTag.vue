@@ -41,12 +41,16 @@ interface Emits {
   (e: "closeModal"): void;
 }
 
+interface Props {
+  modalKey?: string
+}
+
 const formStatus = reactive({
   loading: false,
   error: false,
 });
 const emits = defineEmits<Emits>();
-
+const props = defineProps<Props>()
 const tagsStore = useTagsStore();
 const userStore = useUserStore();
 
@@ -67,7 +71,7 @@ async function createTag() {
   formData.$v.value.$touch();
   if (!formData.$v.value.$invalid) {
     tagsStore.createTag(formData.values.title)
-    emits("closeModal");
+    emits("closeModal", props.modalKey);
   }
 }
 function handleInputChange(value: string, key: string) {

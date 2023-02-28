@@ -1,7 +1,7 @@
 <template>
   <div class="w-full relative text-white">
     <button
-      @click="openModal('addContactModal')"
+      @click="modalsStore.openModal('addContactModal')"
       class="absolute right-0 bg-[#2A0096] hover:bg-[#6909B8] m-2 p-3 rounded-full"
     >
       <img src="@/assets/images/add-user-icon.svg" alt="" class="w-[16px]" />
@@ -9,17 +9,17 @@
 
     <div class="w-[80%] mx-auto pt-2">
       <h5 class="text-3xl text-white text-center">Contacts</h5>
-      <div class="mx-auto flex w-full justify-center gap-4 my-6">
+      <div class="mx-auto flex md:flex-row flex-col-reverse w-full justify-center gap-4 my-6">
         <div>
             <Multiselect v-model="search.data" placeholder="Search or add a tag"
                          v-if="search.type?.name === 'tags'"
-                         label="name" track-by="id" class="min-w-[315px] max-w-[315px]" :options="tagsStore?.tagOptions" :multiple="true" >
+                         label="name" track-by="id" class="md:w-[315px] w-full"  :options="tagsStore?.tagOptions" :multiple="true" >
             </Multiselect>
           <Input
               v-else
               :text="search.data"
               @input-change="handleInputChange"
-              class="py-[6px] px-2 rounded-md border-2 bg-white text-black"
+              class="py-[6px] px-2 rounded-md border-2 bg-white text-sm text-black"
               max="30"
               min="3"
               field-key="data"
@@ -27,7 +27,7 @@
           />
         </div>
           <Multiselect v-model="search.type" placeholder="Search mode"
-                       label="name" track-by="id" class="max-w-[160px]" :options="search.options" :multiple="false" >
+                       label="name" track-by="id" class="md:max-w-[160px] w-full" :options="search.options" :multiple="false" >
           </Multiselect>
       </div>
       <ul
@@ -76,12 +76,12 @@
     </div>
     <teleport to="#modal">
       <TheModal
-        :is-modal-open="modals.addContactModal"
-        @closeModal="closeModal"
+        :is-modal-open="modalsStore.modals.addContactModal"
+        @closeModal="modalsStore.closeModal"
         modal-key="addContactModal"
         container-classes="bg-[#4200D8] px-4 py-8 rounded-md"
       >
-        <CreateContact @closeModal="closeModal" modal-key="addContactModal" />
+        <CreateContact @closeModal="modalsStore.closeModal" modal-key="addContactModal" />
       </TheModal>
     </teleport>
     <teleport to="#modal">
@@ -108,11 +108,12 @@ import Multiselect from 'vue-multiselect'
 import UpdateContact from "@/components/ModalForms/UpdateContact.vue";
 import Input from "@/components/UI/Input.vue";
 import {ContactSearchType} from "@/typing/types/contacts";
+import {useModalsStore} from "@/store/useModalsStore";
 
 const modals: any = reactive({
-  addContactModal: false,
   editContactModal: false
 })
+const modalsStore = useModalsStore()
 const selectedContact = reactive({
     id: ''
 })
