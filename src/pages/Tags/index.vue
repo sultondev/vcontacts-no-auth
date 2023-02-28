@@ -26,6 +26,13 @@
           </button>
         </li>
       </ul>
+      <div
+          class="mx-auto flex flex-col items-center justify-center my-20"
+          v-else
+      >
+        <img src="@/assets/images/no-data.svg" alt="" class="w-[260px]" />
+        <h6 class="text-white text-4xl">No data</h6>
+      </div>
     </div>
     <teleport to="#modal">
       <TheModal
