@@ -38,7 +38,8 @@ export const useContactsStore: any = defineStore("contactsStore",  {
     deleteContactTag(tagId: string, contactId: string) {
       const indexOfContact = this.contacts?.findIndex((contact) => contact.id === contactId)
       const indexOfTagInContact = this.contacts[indexOfContact].tags?.findIndex((tag) => tag.id === tagId)
-      this.contacts[indexOfContact].tags.splice(indexOfTagInContact, 1)
+      this.contacts[indexOfContact].tags = [...this.contacts[indexOfContact]?.tags.slice(0, indexOfTagInContact),
+          ...this.contacts[indexOfContact].tags.slice(indexOfTagInContact+1)]
     }
   },
   getters: {
