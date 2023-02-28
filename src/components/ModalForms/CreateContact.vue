@@ -35,7 +35,7 @@
     </FormGroup>
     <FormGroup title="Tags" header-classes="text-white mb-2">
       <Multiselect v-model="formData.values.tags" placeholder="Search or add a tag"
-                   label="name" track-by="id" class="max-w-[315px]" :options="tagOptions" :multiple="true" ></Multiselect>
+                   label="name" track-by="id" class="max-w-[315px]" :options="tagsStore?.tagOptions" :multiple="true" ></Multiselect>
     </FormGroup>
 
     <Button
@@ -64,21 +64,20 @@ import { useForm } from "@/composables/useForm";
 import { useTagsStore } from "@/store/useTags";
 import Multiselect from 'vue-multiselect'
 interface Emits {
-  (e: "closeModal"): void;
+  (e: "closeModal", value?: string): void;
 }
-
+interface Props {
+  modalKey?: string
+}
 const formStatus = reactive({
   loading: false,
   error: false,
 });
 const emits = defineEmits<Emits>();
+const props = defineProps<Props>()
 const value = ref("");
 const contactStore = useContactsStore();
 const tagsStore = useTagsStore();
-const tagOptions = computed(
-  () =>
-    tagsStore.tags.map((item: any) => ({ id: item.id, name: item.title })) || []
-);
 const formData: any = useForm(
   {
     name: "",
@@ -105,7 +104,7 @@ async function createContact() {
   formData.$v.value.$touch();
   if (!formData.$v.value.$invalid) {
     contactStore.addContact(formData.values)
-    emits("closeModal");
+    emits("closeModal", props.modalKey || '');
   }
 }
 function handleInputChange(value: string, key: string) {

@@ -6,7 +6,7 @@
     >
       <div
         class="modal__backdrop bg-[#00000080] w-full h-screen w-screen flex justify-center items-center"
-        @click.self="emits('closeModal', windowNum || '')"
+        @click.self="emits('closeModal', modalKey || '')"
       >
         <div :class="containerClasses" class="modal__container">
           <slot>Default</slot>
@@ -19,11 +19,11 @@
 <script setup lang="ts">
 interface Props {
   containerClasses?: string;
-  windowNum?: number | string;
+  modalKey?: number | string;
   isModalOpen: boolean;
 }
 interface Emits {
-  (e: "closeModal", value?: number | string): void;
+  (e: "closeModal", value?: number | string | any): void;
 }
 
 const props = withDefaults(defineProps<Props>(), {

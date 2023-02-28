@@ -1,22 +1,46 @@
 import { defineStore } from "pinia";
-import { ref, Ref } from "vue";
+import { ref, Ref, computed } from "vue";
 import { TagsDataType } from "@/typing/types/tags";
-export const useTagsStore = defineStore("useTagsStore", () => {
-  const tags: Ref<TagsDataType[] | [] | any> = ref([]);
-  function initialize() {
-    const localTags = JSON.parse(localStorage.getItem('tags'))
-    if(localTags) {
-      tags.value = localTags
+import {saveToLocal} from "@/helpers";
+
+export const useTagsStore = defineStore("useTagsStore", {
+  state: ()=> ({
+   tags: [] as TagsDataType[]
+  }),
+  getters: {
+    tagOptions: (state) => {
+      return state.tags.map((item: any) => ({ id: item.id, name: item.title })) || []
+    },
+  transformUserTags: (state): any => {
+    return (tagsList: TagsDataType[]) => {
+        return state.tags.filter((item: TagsDataType) => {
+            return tagsList.some((tag) => tag.id === item.id)
+        }).map(item=> ({id: item.id, name: item.title}))
     }
   }
-  function findTagById(id: number | string) {
-    return tags.value.find((element: TagsDataType) => element.id == id).title;
-  }
-  function createTag(title: string) {
+  },
+ actions: {
+    initialize() {
+    const localTags = localStorage.getItem('tags')
+    if(localTags) {
+      this.tags = JSON.parse(localTags)
+    }
+  },
+  findTagById(id: number | string) {
+    const res = this.tags.find((element: TagsDataType) => element.id === id)?.title || false;
+    if(res) {
+        return res
+    }
+  },
+  createTag(title: string) {
     const newTag = {title, id: crypto.randomUUID()}
-    tags.value.push(newTag)
-    localStorage.setItem('tags', JSON.stringify(tags.value))
+    this.tags.push(newTag)
+    localStorage.setItem('tags', JSON.stringify(this.tags))
+  },
+  deleteTag(id: string | any) {
+    const index = this.tags.findIndex((item: TagsDataType) => item.id ===id)
+    this.tags.splice(index, 1)
+    saveToLocal('tags', this.tags)
   }
-
-  return { tags, initialize, findTagById, createTag };
+ }
 });

@@ -14,13 +14,16 @@
       >
         <li
           v-for="item in tagsStore.tags"
-          class="px-6 py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
+          class="group flex justify-between px-6 py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
         >
           <div class="flex flex-col">
             <span class="text-sm font-medium leading-md">
               {{ item.title }}
             </span>
           </div>
+          <button class="transition-all easy-in hover:scale-[1.3] duration-300 group-hover:opacity-100 opacity-0" @click="tagsStore.deleteTag(item.id)">
+            <img src="@/assets/images/delete-icon.svg" class=" w-[28px]" alt="">
+          </button>
         </li>
       </ul>
     </div>

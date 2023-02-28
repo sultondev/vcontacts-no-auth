@@ -1,3 +1,5 @@
+import {TagsDataType} from "@/typing/types/tags";
+
 export type Contact = {
   id: string;
   name: string;
@@ -5,8 +7,10 @@ export type Contact = {
 };
 
 export type ContactDataType = {
-  id: number;
+  id: string;
   name: string;
   phone: string;
   email: string;
+  tags: TagsDataType[] | []
 };
+

@@ -1,4 +1,9 @@
 export type TagsDataType = {
   title: string;
-  id?: number;
+  id?: string;
 };
+
+export type OptionTagsDataType = {
+  name: string;
+  id?: string;
+}

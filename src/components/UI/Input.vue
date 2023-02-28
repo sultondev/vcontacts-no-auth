@@ -74,7 +74,7 @@ const props = withDefaults(defineProps<Props>(), {
   wrapperClass: "bg-primary border border-gray",
   type: "text",
 });
-const textValue = ref("");
+const textValue = ref(props.text || "");
 const emits = defineEmits<Emits>();
 const hide = ref(props.type);
 // const textValue = ref("");

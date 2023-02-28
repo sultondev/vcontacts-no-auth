@@ -7,5 +7,5 @@ export function saveToLocal(key: string, data: any) {
 }
 
 export function leaveOnlyId(arr: any) {
-   return arr.map((item) => ({id: item?.id})) || []
+   return arr.map((item: {id: string}) => ({id: item?.id})) || []
 }
