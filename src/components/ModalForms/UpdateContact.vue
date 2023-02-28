@@ -52,7 +52,7 @@
         formData.$v?.value.phone.$error || formData.$v.value.name.$error
       "
     >
-      Create
+      Update
     </Button>
   </form>
 </template>

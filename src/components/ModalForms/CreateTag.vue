@@ -38,7 +38,7 @@ import { useUserStore } from "@/store/userStore";
 import { useTagsStore } from "@/store/useTags";
 
 interface Emits {
-  (e: "closeModal"): void;
+  (e: "closeModal", value?: string): void;
 }
 
 interface Props {

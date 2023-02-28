@@ -2,7 +2,7 @@
   <div class="w-full relative text-white">
     <button
       @click="modalsStore.openModal('addContactModal')"
-      class="absolute right-0 bg-[#2A0096] hover:bg-[#6909B8] m-2 p-3 rounded-full"
+      class="absolute right-0 bg-[#2A0096] hover:bg-[#6909B8] md:block hidden m-2 p-3 rounded-full"
     >
       <img src="@/assets/images/add-user-icon.svg" alt="" class="w-[16px]" />
     </button>
@@ -19,7 +19,7 @@
               v-else
               :text="search.data"
               @input-change="handleInputChange"
-              class="py-[6px] px-2 rounded-md border-2 bg-white text-sm text-black"
+              class="px-2 py-2 rounded-md border-2 bg-white text-sm text-black"
               max="30"
               min="3"
               field-key="data"
@@ -46,7 +46,7 @@
             <span class="text-[#DBE3FFA2] text-xs font-normal">
               +998 {{ item.phone }}
             </span>
-            <span class="flex my-1 gap-1" v-if="item?.tags">
+            <span class="flex my-1 gap-1" v-if="item?.tags.length">
               <span
                 v-for="tag in item.tags"
                 :key="tag?.id"
@@ -57,10 +57,10 @@
             </span>
           </div>
           <div class="flex gap-4">
-          <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 opacity-0" @click="contactStore.deleteContact(item.id)">
+          <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0" @click="contactStore.deleteContact(item.id)">
             <img src="@/assets/images/delete-icon.svg" class=" w-[28px]" alt="">
           </button>
-          <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 opacity-0" @click="editContact(item?.id)">
+          <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0" @click="editContact(item?.id)">
             <img src="@/assets/images/edit-icon.png" class=" w-[28px]" alt="">
           </button>
           </div>

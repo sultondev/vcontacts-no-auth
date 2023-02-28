@@ -1,15 +1,19 @@
 import {defineStore} from "pinia"
 import {reactive} from "vue"
+type ModalTypes = {
+    addContactModal: boolean
+    addTagModal: boolean
+}
 export const useModalsStore = defineStore('useModalsStore', () => {
-    const modals = reactive({
+    const modals: ModalTypes | any = reactive({
         addContactModal: false,
         addTagModal: false
     })
-    function closeModal(key: string) {
+    function closeModal(key: string | any) {
         modals[key] = false
     }
 
-    function openModal(key: string) {
+    function openModal(key: string | any) {
         modals[key] = true
     }
 
