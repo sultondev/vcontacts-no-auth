@@ -1,1 +1,6 @@
 .yarn
+node_modules
+dist
+
+.pnp.loader.mjs
+.pnp.loader.mjs
