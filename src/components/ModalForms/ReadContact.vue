@@ -8,11 +8,11 @@
         Phone: {{contactData?.phone}}
       </div>
       <div class="p-2 text-white">
-        email: {{contactData?.email}}
+        Email: {{contactData?.email}}
       </div>
       <div class="p-2 flex gap-2 text-white w-full">
         <span>
-        tags:
+        Tags:
         </span>
         <span class="flex gap-2 flex-wrap max-w-[300px] " v-if="contactData.tags.length">
           <span v-for="item in contactData?.tags" class="hashtag my-1 w-fit">
