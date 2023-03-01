@@ -2,7 +2,7 @@
   <div class="w-full container mx-auto my-6 text-white relative">
     <button
       @click="modalsStore.openModal('addTagModal')"
-      class="absolute right-0 bg-[#2A0096] hover:bg-[#6909B8] m-2 p-2 text-sm rounded-full"
+      class="absolute right-0 bg-[#2A0096] md:block hidden hover:bg-[#6909B8] m-2 p-2 text-sm rounded-full"
     >
       #+
     </button>

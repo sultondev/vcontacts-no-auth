@@ -1,64 +1,45 @@
-# VContact test project
+# VContact version-02 test project
 
-## Used technologies:
+## Использование технологии:
 
-- Vue 3, 
-- TypeScript, 
-- Tailwindcss, 
-- Vueuse
+- Vue 3,
+- TypeScript,
+- Tailwindcss,
+- Vue multiselect
 - axios
 
-## back-end side
+## Бек-энд част
 
-- strapi
+Бекн-энд част было отсоединено из-за проблем с кешированием на домен сервере пришлось переписать на localStorage
+сслыка на бек-энд:  [link](https://github.com/sultondev/vcontacts)
 
-
-## how to install
+## Как установить проект
 
 ```jsx
  npm install or yarn install
 ```
 
-[Link for demo](https://vcontacts.vercel.app/)
+[Link for demo](https://vcontacts-no-auth.vercel.app/contacts)
 
-## Things I did not do
+## Веши которые я реализовал в первом версии v-contact:
 
-- contacts filtration
-- contacts search
+- user авторизация
+- user tags, contacts create by API
+- Axios.interceptors
+- route.guards
 
-I could do these tasks on fron-end but because I setup strapi
-I couldn't finish on time. Nevertheless, I have the exact example of these tasks.
 
-similar project that I did
-[github link](https://github.com/sultondev/metasenat-club)
-[live demo](https://metsenat-club.vercel.app/)
+
+
+## Похожий проект который я сделал
+
+metsenat-club
 
 login: metsenatadmin
+
 password: uF9aH1vZ3bV2kN2y
 
-## Warning !
+[github link](https://github.com/sultondev/metasenat-club)
 
-if you have any troubleshooting while registration or login in project
-it's because of back-end register admin panel
-my back-end code was deployed on render.com 
-and render.com regularly cleans the cache.
-
-[link for back-end admin panel](https://v-contacts-backend.onrender.com/admin)
-
-if any problems with back-end write me
-
-telegram: [@sultondev](https://t.me/sultondev)
-
-## Warning !
-
-Why you might get 401 or 403 error even if in front-end you have token?
-It is because of strapi's configuration in roles permission
-# this is right settings for back-end
-
-![first image](https://github.com/sultondev/media-files-for-development/blob/main/right-example.png?raw=true)
-
-# in this is wrong settings for back-end
-therefore we got 401 or 403 error even if we have correct jwt token
-
-![second image](https://github.com/sultondev/media-files-for-development/blob/main/wrong-example.png?raw=true)
+[live demo](https://metsenat-club.vercel.app/)
 

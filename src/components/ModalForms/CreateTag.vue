@@ -17,7 +17,7 @@
       :loading="false"
       aria-label="Submit"
       spinner-color="#cdcdcd"
-      class="bg-[#2A0096] text-white py-2 rounded-xl text-center disabled:opacity-50"
+      class="bg-[#2A0096] text-white py-2 rounded-xl text-center hover:bg-[#0080D0] transition-all duration-600 disabled:opacity-50"
       :disabled="formData.$v?.value.title.$error"
     >
       Create
