@@ -2,14 +2,14 @@
   <div class="w-full container mx-auto my-6 text-white relative">
     <button
       @click="modalsStore.openModal('addTagModal')"
-      class="absolute right-0 bg-[#2A0096] md:block hidden hover:bg-[#6909B8] m-2 p-2 text-sm rounded-full"
+      class="absolute right-0 bg-[#2A0096] md:block  hidden hover:bg-[#6909B8] m-2 p-2 text-sm rounded-full"
     >
       #+
     </button>
     <div>
-      <h6 class="text-center text-2xl">Tags</h6>
+      <h6 class="text-3xl text-white text-center">Tags</h6>
       <ul
-        class="grid grid-cols-2 gap-2 mx-6 mt-12"
+        class="grid md:grid-cols-2 gap-2 mx-6 mt-12"
         v-if="tagsStore.tags.length > 0"
       >
         <li
@@ -21,7 +21,7 @@
               {{ item.title }}
             </span>
           </div>
-          <button class="transition-all easy-in hover:scale-[1.3] duration-300 group-hover:opacity-100 opacity-0" @click="tagsStore.deleteTag(item.id)">
+          <button class="transition-all easy-in hover:scale-[1.3] duration-300 group-hover:opacity-100 md:opacity-0" @click="tagsStore.deleteTag(item.id)">
             <img src="@/assets/images/delete-icon.svg" class=" w-[28px]" alt="">
           </button>
         </li>

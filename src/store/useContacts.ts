@@ -23,6 +23,7 @@ export const useContactsStore: any = defineStore("contactsStore",  {
       const index = this.contacts.findIndex((item: {id: string})=>{
         return item.id === data.id
       })
+      console.log(index, data)
       this.contacts.splice(index, 1, data)
     },
     addContact(data: ContactDataType) {

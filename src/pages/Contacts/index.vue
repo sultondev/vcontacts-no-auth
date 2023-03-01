@@ -39,9 +39,12 @@
           class="group px-6 flex justify-between py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
           :key="item.id + item.email"
         >
-          <div class="flex flex-col">
+          <div class="flex flex-col gap-1">
             <span class="text-sm font-medium leading-md">
               {{ item.name }}
+            </span>
+            <span class="text-[#DBE3FFA2] text-xs font-normal">
+              {{item.email}}
             </span>
             <span class="text-[#DBE3FFA2] text-xs font-normal">
               +998 {{ item.phone }}
@@ -57,12 +60,19 @@
             </span>
           </div>
           <div class="flex gap-4">
-          <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0" @click="contactStore.deleteContact(item.id)">
-            <img src="@/assets/images/delete-icon.svg" class=" w-[28px]" alt="">
-          </button>
-          <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0" @click="editContact(item?.id)">
-            <img src="@/assets/images/edit-icon.png" class=" w-[28px]" alt="">
-          </button>
+            <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0"
+                  @click="viewContact(item?.id)"
+            >
+              <img src="@/assets/images/view-icon.png" class=" w-[30px]" alt="">
+            </button>
+            <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0"
+                    @click="contactStore.deleteContact(item.id)">
+              <img src="@/assets/images/delete-icon.svg" class=" w-[28px]" alt="">
+            </button>
+            <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0"
+                    @click="editContact(item?.id)">
+              <img src="@/assets/images/edit-icon.png" class=" w-[28px]" alt="">
+            </button>
           </div>
         </li>
       </ul>
@@ -95,6 +105,17 @@
                        modal-key="editContactModal" />
       </TheModal>
     </teleport>
+    <teleport to="#modal">
+      <TheModal
+          :is-modal-open="modals.readOnlyContactModal"
+          @closeModal="closeModal"
+          modal-key="readOnlyContactModal"
+          container-classes="bg-[#4200D8] px-4 py-8 rounded-md"
+      >
+        <ReadContact :contact-id="selectedContact.id" @closeModal="closeModal"
+                       modal-key="readOnlyContactModal" />
+      </TheModal>
+    </teleport>
   </div>
 </template>
 
@@ -109,9 +130,11 @@ import UpdateContact from "@/components/ModalForms/UpdateContact.vue";
 import Input from "@/components/UI/Input.vue";
 import {ContactSearchType} from "@/typing/types/contacts";
 import {useModalsStore} from "@/store/useModalsStore";
+import ReadContact from "@/components/ModalForms/ReadContact.vue";
 
 const modals: any = reactive({
-  editContactModal: false
+  editContactModal: false,
+  readOnlyContactModal: false
 })
 const modalsStore = useModalsStore()
 const selectedContact = reactive({
@@ -128,6 +151,12 @@ function openModal(key: string | any){
 function editContact(id: string) {
   selectedContact.id = id
   openModal('editContactModal')
+}
+
+function viewContact(id: string) {
+  selectedContact.id = id
+  console.log('dwadw')
+  openModal('readOnlyContactModal')
 }
 const search: ContactSearchType | any = reactive({
   data: "",
@@ -151,6 +180,9 @@ const search: ContactSearchType | any = reactive({
     }
   ]
 })
+// const readOnyContactOptions = ref([
+//   {name:}
+// ])
 const contactStore = useContactsStore();
 const tagsStore = useTagsStore()
 contactStore.initialize();

@@ -1,6 +1,6 @@
 <template>
   <nav class="nav md:hidden fixed bottom-4 z-[1000] flex justify-center items-center -translate-x-1/2 left-1/2">
-    <ul class="nav-list flex justify-center gap-2 items-center text-white px w-full">
+    <ul class="nav-list flex justify-center gap-2 items-center text-white w-full min-w-[260px]">
       <li class="nav-list__item">
         <router-link class="nav-list__link" to="/contacts">
           <img src="@/assets/images/contacts-list-icon.svg" class="w-[30px]" alt="">

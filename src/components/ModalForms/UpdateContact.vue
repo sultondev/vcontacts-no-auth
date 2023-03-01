@@ -96,6 +96,7 @@ const formData: any = useForm({
   },
   phone: {
     required,
+    minLength: minLength(12)
   },
   email: {
     required,
@@ -106,8 +107,11 @@ onBeforeMount(()=> {
   init()
 })
 function init() {
-  const user = contactsStore.getContactById(props.contactId)
-  formData.values = {...user, tags: []}
+  const user: any = contactsStore.getContactById(props.contactId)
+  formData.values.name = user.name
+  formData.values.email = user.email
+  formData.values.phone = user.phone
+  formData.values.tags = []
   multiselectValue.value = tagsStore.transformUserTags(user.tags) || []
 }
 
@@ -116,10 +120,13 @@ function handleInputChange(value: string, key: string) {
 }
 
 function updateContact() {
-  formData.values.tags = leaveOnlyId(multiselectValue.value)
-  contactsStore.putContact(formData.values)
-  contactsStore.saveContacts()
-  emits('closeModal', props.modalKey || "")
+  formData.$v.value.$touch();
+  if(!formData.$v.value.$invalid) {
+    formData.values.tags = leaveOnlyId(multiselectValue.value)
+    contactsStore.putContact({...formData.values, id: props.contactId})
+    contactsStore.saveContacts()
+    emits('closeModal', props.modalKey || "")
+  }
 }
 
 </script>

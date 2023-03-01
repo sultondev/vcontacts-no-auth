@@ -92,6 +92,7 @@ const formData: any = useForm(
     },
     phone: {
       required,
+      minLength: minLength(12)
     },
     email: {
       required,
