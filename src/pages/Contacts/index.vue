@@ -39,7 +39,7 @@
           class="group px-6 flex justify-between py-5 transition-all duration-300 cursor-pointer bg-[#DBE3FF1A] hover:bg-[#4200D8b9] rounded-lg text-white"
           :key="item.id + item.email"
         >
-          <div class="flex flex-col gap-1">
+          <div class="flex flex-col gap-y-1 gap-x-2">
             <span class="text-sm font-medium leading-md">
               {{ item.name }}
             </span>
@@ -49,7 +49,7 @@
             <span class="text-[#DBE3FFA2] text-xs font-normal">
               +998 {{ item.phone }}
             </span>
-            <span class="flex my-1 gap-1" v-if="item?.tags.length">
+            <span class="flex flex-wrap my-1 gap-1" v-if="item?.tags.length">
               <span
                 v-for="tag in item.tags"
                 :key="tag?.id"
@@ -59,7 +59,7 @@
               </span>
             </span>
           </div>
-          <div class="flex gap-4">
+          <div class="flex gap-4 min-w-[118px]">
             <button class="transition-all easy-in hover:scale-[1.2] duration-200 group-hover:opacity-100 md:opacity-0"
                   @click="viewContact(item?.id)"
             >

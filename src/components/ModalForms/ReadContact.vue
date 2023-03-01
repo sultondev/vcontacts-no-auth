@@ -1,18 +1,27 @@
 <template>
-  <div class="flex flex-col gap-4">
-
-    <div class="flex flex-col text-white">
-      <div class="text-white">
-        Name: {{contactData.name}}
+  <div class="flex flex-col gap-4 px-2 min-w-[320px]">
+    <div class="flex flex-col gap-2 text-white">
+      <div class="p-2 text-white">
+        Name: {{contactData?.name}}
       </div>
-      <div class="text-white">
-        Phone: {{contactData.phone}}
+      <div class="p-2 text-white">
+        Phone: {{contactData?.phone}}
       </div>
-      <div class="text-white">
-        email: {{contactData.email}}
+      <div class="p-2 text-white">
+        email: {{contactData?.email}}
       </div>
-      <div class="text-white">
-        tags: {{contactData.tags}}
+      <div class="p-2 flex gap-2 text-white w-full">
+        <span>
+        tags:
+        </span>
+        <span class="flex gap-2 flex-wrap max-w-[300px] " v-if="contactData.tags.length">
+          <span v-for="item in contactData?.tags" class="hashtag my-1 w-fit">
+            {{ tagsStore.findTagById(item.id) }}
+          </span>
+        </span>
+        <span class="" v-else>
+          Empty
+        </span>
       </div>
     </div>
   </div>
@@ -42,7 +51,7 @@ const props = defineProps<Props>()
 const contactsStore = useContactsStore()
 const tagsStore = useTagsStore()
 const multiselectValue: Ref<TagsDataType[] | []> = ref([])
-const contactData = ref({})
+const contactData: any = ref({})
 onBeforeMount(()=> {
   init()
 })
